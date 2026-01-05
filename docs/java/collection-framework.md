@@ -1,3 +1,13 @@
+---
+tags:
+  - java
+  - collections
+  - arraylist
+  - data-structures
+---
+
+# Collection Framework
+
 Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
 ](https://www.youtube.com/watch?v=92k5uokmW9o) by [Engineering Digest](https://www.youtube.com/@EngineeringDigest)
 
@@ -5,9 +15,9 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
 - `Collection` is simply an object that represents a group of objects, known as its elements.
 
 ### Collection Framework
-- It provides a set of interfaces and classes that helps managing groups of objects.
+- It provides a set of interfaces and classes that helps to manage groups of objects.
 - It is introduced in Java 2 (JDK 1.2).
-- Before that `Java` used of to rely on veriety of class like `Vector`, `Stack`, `Hashtable` and `Arrays' to store and manipulate groups of objects.
+- Before that `Java` used of to rely on variety of class like `Vector`, `Stack`, `Hashtable` and `Arrays` to store and manipulate groups of objects.
 - Before collection framework, there was
   - `Inconsistancy` : Each class has its own implementation.
   - `Lack of interoperabiliy`: These class were not designed to work together seamlessly.
@@ -35,7 +45,7 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
 - Map
 
 ### Collection Hierarchy
-![img.png](../../static/img/java/collection/collection-hierarchy.png)
+![img.png](img/collection/collection-hierarchy.png)
 
 
 ### List Interface
@@ -43,7 +53,19 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
 - resizable array implementation of the `List` interface.
 - ArrayList can grow and shrink as elements are added and removed. This dynamic resizing is achieved by `creating a new array when the current array is full and copying all elements to the new array`.
 - It is implemented as an array Object references, when you add an element to the ArrayList, it is stored in the array at the next available index.
-- 
+- Initial(Default) capacity is 10.
+- When an element is added to the ArrayList, the following list occur
+  - Check Capacity
+  - Resize If necessary
+    - If the internal array is full, the ArrayList will create a new array with larger capacity (usually `1.5 times` of the current capacity) and copy the elements from the old array to the new array.
+  - Add the element
+- Though adding an element when the ArrayList is full, the capacity of the arrayList gets increased, but removing an element does not decrease the capacity.
+- Time Complexity
+  - Access by index: O(1)
+  - Insertion: O(1) at the end, O(n) at beginning/specific index or when resizing (elements need shifting)
+  - Deletion at index: O(n)
+  - Iteration: O(n)
+
 ```java
 void main(String[] args) {
     ArrayList<Integer> list = new ArrayList<>();
@@ -79,5 +101,79 @@ void main(String[] args) {
     // update by index
     list.set(1, 3);
     System.out.println(list);
+    
+    
+    // ArrayList with initial capacity
+    ArrayList<Integer> list2 = new ArrayList<>(10);
+    
+    
+    // Access internal array to check actual capacity using reflection
+    Field field = ArrayList.class.getDeclaredField("elementData");
+    field.setAccessible(true);
+    Object[] array = (Object[]) field.get(list2);
+    System.out.println("ArrayList capacity: "+array.length);
+    
+    // for loop to add 11 items in list2
+    for(int i = 0; i < 11; i++){
+        list.add(i);
+    }
+    
+  // the capacity of list2 will be 10*1.5 = 15
+  array = (Object[]) field.get(list2);
+  System.out.println("New ArrayList capacity: "+array.length);
+  
+  // remove single element to check capacity
+  list2.remove(0);
+  array = (Object[]) field.get(list2);
+  System.out.println("New ArrayList capacity: "+array.length);
+  
+  // so the capacity remains same
+  // to reduce capacity to the size of the list, we can use trimToSize() method
+  list2.trimToSize();
+  array = (Object[]) field.get(list2);
+  System.out.println("New ArrayList capacity: "+array.length);
+  
+  // generate List from Arrays
+  List<Integer> list3 = Arrays.asList(1, 2, 3, 4, 5);
+  
+  // list3 cannot be considered as arrayList, it is a nested static class of Arrays
+  // list3 is a fixed-size list backed by an array - it cannot add/remove elements but can update existing ones
+  System.out.println(list2.getClass().getName()); // prints java.util.ArrayList
+  System.out.println(list3.getClass().getName()); // prints java.util.Arrays$ArrayList
+  
+  // generate list using List.of()
+  List<Integer> list4 = List.of(1, 2, 3, 4, 5);
+  // list4 is an immutable list created by List.of() - cannot add, remove, or update elements
+  System.out.println(list4.getClass().getName()); // prints java.util.ImmutableCollections$ListN
+  // not an actual ArrayList, it is a nested static class of List
+  
+  // convert ArrayList from List
+  List<Integer> list5 = new ArrayList<>(list4);
+  System.out.println(list5.getClass().getName()); // prints java.util.ArrayList
+  
+  // addAll method
+  list5.addAll(list3);
+  System.out.println(list5);
+  
+  // addAll method with index
+  list5.addAll(0, list3);
+  System.out.println(list5);
+  
+  // remove by index
+  list5.remove(0);
+  System.out.println(list5);
+  
+  // remove by object
+  list5.remove(Integer.valueOf(1));
+  System.out.println(list5);
+  
+  // arrayList to array
+  Integer[] array = list5.toArray(new Integer[0]);
+  System.out.println(Arrays.toString(array));
+  
+  // sort arrayList
+  Collections.sort(list5);
+  list5.sort(null); // same as Collections.sort(list5)
+  System.out.println(list5);
 }
 ```
