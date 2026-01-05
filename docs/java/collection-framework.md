@@ -11,10 +11,10 @@ tags:
 Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
 ](https://www.youtube.com/watch?v=92k5uokmW9o) by [Engineering Digest](https://www.youtube.com/@EngineeringDigest)
 
-### Collection
+## Collection
 - `Collection` is simply an object that represents a group of objects, known as its elements.
 
-### Collection Framework
+## Collection Framework
 - It provides a set of interfaces and classes that helps to manage groups of objects.
 - It is introduced in Java 2 (JDK 1.2).
 - Before that `Java` used of to rely on variety of class like `Vector`, `Stack`, `Hashtable` and `Arrays` to store and manipulate groups of objects.
@@ -28,7 +28,7 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
   - `Reuasbility`
   - `Efficiency`
 
-### Collections Types
+## Collections Types
 - Collections
   - The root interface of all other collection types.
 - List
@@ -44,12 +44,12 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
   - Double Ended Queue
 - Map
 
-### Collection Hierarchy
+## Collection Hierarchy
 ![img.png](img/collection/collection-hierarchy.png)
 
 
-### List Interface
-#### ArrayList
+## List Interface
+## ArrayList
 - resizable array implementation of the `List` interface.
 - ArrayList can grow and shrink as elements are added and removed. This dynamic resizing is achieved by `creating a new array when the current array is full and copying all elements to the new array`.
 - It is implemented as an array Object references, when you add an element to the ArrayList, it is stored in the array at the next available index.
@@ -66,7 +66,7 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
   - Deletion at index: `O(n)`
   - Iteration: `O(n)`
 
-#### Example Code
+### Example Code
 ```java
 void main(String[] args) {
     ArrayList<Integer> list = new ArrayList<>();
