@@ -61,11 +61,12 @@ Video URL: [Complete Java Collections Framework & Streams Masterclass 2024
   - Add the element
 - Though adding an element when the ArrayList is full, the capacity of the arrayList gets increased, but removing an element does not decrease the capacity.
 - Time Complexity
-  - Access by index: O(1)
-  - Insertion: O(1) at the end, O(n) at beginning/specific index or when resizing (elements need shifting)
-  - Deletion at index: O(n)
-  - Iteration: O(n)
+  - Access by index: `O(1)`
+  - Insertion: `O(1)` at the end, `O(n)` at beginning/specific index or when resizing (elements need shifting)
+  - Deletion at index: `O(n)`
+  - Iteration: `O(n)`
 
+#### Example Code
 ```java
 void main(String[] args) {
     ArrayList<Integer> list = new ArrayList<>();
