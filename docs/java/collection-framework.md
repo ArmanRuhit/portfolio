@@ -178,3 +178,131 @@ void main(String[] args) {
   System.out.println(list5);
 }
 ```
+
+### Comparator
+
+```java
+class IntegerComparator implements Comparator<Integer> {
+    private boolean isAscending;
+    
+    IntegerComparator(boolean isAscending){
+        this.isAscending = isAscending;
+    }
+    
+    @override
+    public Integer compare(Integer o1, Integer o2){
+        if(isAscending)
+            return o1.compareTo(o2);
+        else
+            return o2.compareTo(o1);
+    }
+}
+
+void main() {
+    IntegerComparator ascendingComparator = new IntegerComparator(true);
+
+    IntegerComparator descendingComparator = new IntegerComparator(false);
+    
+    List<Integer> list = new ArrayList<>({1, 2, 3, 4, 5});
+    
+    // ascending sort
+    list.sort(ascendingComparator);
+    System.out.println(list);
+    
+    // descending sort
+    list.sort(descendingComparator);
+    System.out.println(list);
+}
+```
+
+- Lamba expression example
+```java
+void main(){
+    List<Integer> list = new ArrayList<>({1, 5, 4, 2, 3});
+    
+    // ascending sorting
+    list.sort((a, b) -> Integer.compare(a, b));
+    list.sort(Comparator.comparingInt(a -> a));
+    System.out.println(list);
+  
+    // descending sorting
+    list.sort((a, b) -> b-a);
+    list.sort(Comparator.comparingInt(a -> a).reversed());
+    System.out.println(list);
+}
+```
+
+- Comparator.comparing method
+```java
+void main() {
+  List<Integer> list = new ArrayList<>({1, 5, 4, 2, 3});
+  Comparator.comparing ascendingCompare = Comparator.comparing(list);
+  Comparator.comparing descendingCompare = Comparator.comparing(list).reversed();
+  
+  list.sort(ascendingCompare);
+  System.out.println(ascendingCompare);
+  
+  list.sort(descendingCompare);
+  System.out.println(descendingCompare);
+}
+```
+- String Example
+
+```java
+
+class Student implements Comparator<Student {
+  String name;
+  double cgpa;
+
+
+  @override
+  public int compare(Student s1, Student s2) {
+    return s1.cgpa.compareTo(s2.cgpa);
+  }
+  
+  @overided
+  public void toString() {
+      return name + " " + cgpa;
+  }
+}
+
+void main() {
+  List<Integer> list = new ArrayList<>({1, 5, 4, 2, 3});
+  Comparator.comparing ascendingCompare = Comparator.comparing(Stiudent::cgpa).thenComparing(Stiudent::name);
+  Comparator.comparing descendingCompare = Comparator.comparing(list).thenComparing(Stiudent::name).reversed();
+
+  list.sort(ascendingCompare);
+  System.out.println(ascendingCompare);
+
+  list.sort(descendingCompare);
+  System.out.println(descendingCompare);
+}
+```
+
+- Collections class sort method
+
+```java
+import java.util.Collections;
+void main(){
+try {
+    Collections.sort(list, ascendingCompare);
+} catch (ClassCastException e) {
+    System.err.println("Cannot compare elements: " + e.getMessage());
+} catch (UnsupportedOperationException e) {
+    System.err.println("List cannot be modified: " + e.getMessage());
+} catch (IllegalArgumentException e) {
+    System.err.println("Comparator violates contract: " + e.getMessage());
+}
+
+try {
+    Collections.sort(list, descendingCompare);
+} catch (ClassCastException e) {
+    System.err.println("Cannot compare elements: " + e.getMessage());
+} catch (UnsupportedOperationException e) {
+    System.err.println("List cannot be modified: " + e.getMessage());
+} catch (IllegalArgumentException e) {
+    System.err.println("Comparator violates contract: " + e.getMessage());
+}
+}
+```
+
